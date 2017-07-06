@@ -1,4 +1,4 @@
-Kafka Offset Monitor (Intranet)
+Kafka Offset Monitor
 ===========
 
 [![Build Status](https://travis-ci.org/Morningstar/kafka-offset-monitor.svg?branch=master)](https://travis-ci.org/Morningstar/kafka-offset-monitor)
