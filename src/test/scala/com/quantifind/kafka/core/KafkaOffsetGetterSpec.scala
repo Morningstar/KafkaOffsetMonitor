@@ -2,12 +2,10 @@ package com.quantifind.kafka.core
 
 import com.quantifind.kafka.offsetapp.OffsetGetterArgs
 import com.quantifind.utils.ZkUtilsWrapper
-import java.nio.{BufferUnderflowException, ByteBuffer}
-
 import kafka.api.{OffsetRequest, OffsetResponse, PartitionOffsetsResponse}
 import kafka.common.{OffsetAndMetadata, OffsetMetadata, TopicAndPartition}
-import kafka.coordinator._
 import kafka.consumer.SimpleConsumer
+import kafka.coordinator._
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.TopicPartition
 import org.mockito.Matchers._
@@ -40,7 +38,7 @@ class KafkaOffsetGetterSpec extends FlatSpec with ShouldMatchers {
 
     val topicAndPartition = TopicAndPartition(testTopic, testPartition)
     val topicPartition = new TopicPartition(testTopic, testPartition)
-    val groupTopicPartition = GroupTopicPartition(testGroup, TopicAndPartition(testTopic, testPartition))
+    val groupTopicPartition = GroupTopicPartition(testGroup, new TopicPartition(testTopic, testPartition))
     val offsetAndMetadata = OffsetAndMetadata(committedOffset, "meta", System.currentTimeMillis)
 
     KafkaOffsetGetter.committedOffsetMap += (groupTopicPartition -> offsetAndMetadata)

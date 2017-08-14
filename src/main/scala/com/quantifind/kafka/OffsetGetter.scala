@@ -143,6 +143,12 @@ trait OffsetGetter extends Logging {
 		}
 	}
 
+
+	def getGroupTopicDetail(group: String, topic: String): Seq[OffsetInfo] = {
+		offsetInfo(group, Seq(topic))
+	}
+
+
 	def mapConsumerDetails(consumers: Seq[String]): Seq[ConsumerDetail] =
 		consumers.map(consumer => ConsumerDetail(consumer.toString))
 

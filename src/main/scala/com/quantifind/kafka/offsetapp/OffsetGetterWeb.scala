@@ -16,6 +16,7 @@ import org.json4s.native.Serialization.write
 import org.json4s.{CustomSerializer, JInt, NoTypeHints}
 import org.reflections.Reflections
 import unfiltered.filter.Plan
+import unfiltered.filter.request.ContextPath
 import unfiltered.request.{GET, Path, Seg}
 import unfiltered.response.{JsonContent, Ok, ResponseString}
 
@@ -118,6 +119,11 @@ object OffsetGetterWeb extends UnfilteredWebApp[OWArgs] with Logging {
     _.getClusterViz
   }
 
+  def getGroupTopicDetail(group: String, topic: String, args: OWArgs) = withOG(args) {
+    _.getGroupTopicDetail(group, topic)
+  }
+
+
   override def afterStop() {
 
     scheduler.shutdown()
@@ -159,6 +165,9 @@ object OffsetGetterWeb extends UnfilteredWebApp[OWArgs] with Logging {
         JsonContent ~> ResponseString(write(getTopicDetail(topic, args)))
       case GET(Path(Seg("topic" :: topic :: "consumer" :: Nil))) =>
         JsonContent ~> ResponseString(write(getTopicAndConsumersDetail(topic, args)))
+      case GET(ContextPath(_, Seg("group" :: group :: "topic" :: topic :: Nil))) =>
+        val offsetsForTopic = getGroupTopicDetail(group, topic, args)
+        JsonContent ~> ResponseString(write(offsetsForTopic)) ~> Ok
       case GET(Path(Seg("activetopics" :: Nil))) =>
         JsonContent ~> ResponseString(write(getActiveTopics(args)))
     }

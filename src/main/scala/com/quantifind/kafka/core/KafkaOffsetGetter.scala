@@ -36,9 +36,8 @@ class KafkaOffsetGetter(zkUtilsWrapper: ZkUtilsWrapper, args: OffsetGetterArgs) 
 	override def processPartition(group: String, topic: String, partitionId: Int): Option[OffsetInfo] = {
 
 		val topicPartition = new TopicPartition(topic, partitionId)
-		val topicAndPartition = TopicAndPartition(topic, partitionId)
 
-		committedOffsetMap.get(GroupTopicPartition(group, topicAndPartition)) map { offsetMetaData =>
+		committedOffsetMap.get(GroupTopicPartition(group, topicPartition)) map { offsetMetaData =>
 
 			// BIT O'HACK to deal with timing:
 			// Due to thread and processing timing, it is possible that the value we have for the topicPartition's
@@ -248,7 +247,7 @@ object KafkaOffsetGetter extends Logging {
 									while (topicPartitionIterator.hasNext()) {
 
 										val topicPartition: TopicPartition = topicPartitionIterator.next()
-										offsetConsumer.seekToBeginning(topicPartition)
+										offsetConsumer.seekToBeginning(Arrays.asList(topicPartition))
 									}
 								}
 							}
@@ -340,12 +339,12 @@ object KafkaOffsetGetter extends Logging {
 							groupOverviews.foreach((groupOverview: GroupOverview) => {
 
 								val groupId: String = groupOverview.groupId;
-								val consumerGroupSummary: List[AdminClient#ConsumerSummary] = adminClient.describeConsumerGroup(groupId)
+								val consumerGroupSummary: AdminClient#ConsumerGroupSummary= adminClient.describeConsumerGroup(groupId)
 
-								consumerGroupSummary.foreach((consumerSummary) => {
+								consumerGroupSummary.consumers.getOrElse(List()).foreach((consumerSummary) => {
 
 									val clientId: String = consumerSummary.clientId
-									val clientHost: String = consumerSummary.clientHost
+									val clientHost: String = consumerSummary.host
 
 									val topicPartitions: List[TopicPartition] = consumerSummary.assignment
 
@@ -428,7 +427,7 @@ object KafkaOffsetGetter extends Logging {
 					// Get the LogEndOffset for the TopicPartition
 					val topicPartition: TopicPartition = new TopicPartition(partitionInfo.topic, partitionInfo.partition)
 					logEndOffsetGetter.assign(Arrays.asList(topicPartition))
-					logEndOffsetGetter.seekToEnd(topicPartition)
+					logEndOffsetGetter.seekToEnd(Arrays.asList(topicPartition))
 					val logEndOffset: Long = logEndOffsetGetter.position(topicPartition)
 
 					// Update the TopicPartition map with the current LogEndOffset if it exists, else add a new entry to the map
