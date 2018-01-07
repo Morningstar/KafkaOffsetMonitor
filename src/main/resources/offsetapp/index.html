@@ -9,14 +9,15 @@
 
     <title>Kafka Consumer Offset Monitor</title>
 
+    <link href="./img/logo.png" rel="shortcut icon" />
     <!-- Bootstrap core CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/slate/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./style.css" rel="stylesheet">
     <link href="./css/cluster-viz.css" rel="stylesheet">
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.js"></script>
+    <script src="./scripts/angular.min.js"></script>
+    <script src="./scripts/angular-route.min.js"></script>
+    <script src="./scripts/angular-resource.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -43,13 +44,13 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="./#">Consumer Groups</a></li>
-                      <li><a href="./#/topics">Topic List</a></li>
+                      <li><a href="#">Consumer Groups</a></li>
+                      <li><a href="/#/topics">Topic List</a></li>
                       <li class="dropdown">
                           <a  href="javascript:void(0)"  class="dropdown-toggle" data-toggle="dropdown">Visualizations <b class="caret"></b></a>
                           <ul class="dropdown-menu">
-                              <li><a href="./#/activetopicsviz">Active Topic Consumers</a></li>
-                              <li><a href="./#/clusterviz">Cluster Overview</a></li>
+                              <li><a href="/#/activetopicsviz">Active Topic Consumers</a></li>
+                              <li><a href="/#/clusterviz">Cluster Overview</a></li>
                           </ul>
                       </li>
                   </ul>
@@ -66,16 +67,17 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	<script src="//code.highcharts.com/stock/highstock.js"></script>
-	<script src="//code.highcharts.com/stock/modules/exporting.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script src="./scripts/jquery-1.10.2.min.js"></script>
+    <script src="./scripts/moment.min.js"></script>
+    <script src="./scripts/bootstrap.min.js"></script>
+    <script src="./scripts/highstock.js"></script>
+    <script src="./scripts/exporting.js"></script>
+    <script src="./scripts/offline-exporting.js"></script>
+    <script src="./scripts/lodash.min.js"></script>
     <script src="./scripts/d3.v3.min.js"></script>
-	<script src="./scripts/directives.js"></script>
-	<script src="./scripts/controllers.js"></script>
-	<script src="./scripts/app.js"></script>
-	<script src="./scripts/cluster-viz.js"></script>
+    <script src="./scripts/directives.js"></script>
+    <script src="./scripts/controllers.js"></script>
+    <script src="./scripts/app.js"></script>
+    <script src="./scripts/cluster-viz.js"></script>
   </body>
 </html>
