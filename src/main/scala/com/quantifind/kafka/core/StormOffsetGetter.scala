@@ -8,6 +8,7 @@ import com.twitter.util.Time
 import kafka.api.{OffsetRequest, PartitionOffsetRequestInfo}
 import kafka.common.TopicAndPartition
 import kafka.utils.Json
+import kafka.utils.json.{JsonArray, JsonValue}
 import org.I0Itec.zkclient.exception.ZkNoNodeException
 import org.apache.kafka.common.TopicPartition
 import org.apache.zookeeper.data.Stat
@@ -86,8 +87,14 @@ class StormOffsetGetter(theZkUtils: ZkUtilsWrapper, zkOffsetBase: String) extend
       println(stateJson)
       Json.parseFull(stateJson) match {
         case Some(m) =>
-          val spoutState = m.asInstanceOf[Map[String, Any]]
-          List(spoutState.getOrElse("topic", "Unknown Topic").toString)
+          println(m)
+          val spoutStateValue:JsonValue = m.asInstanceOf[JsonValue]
+//          spoutStateValue.toString()
+//
+//          val spoutState = spoutStateArray.asInstanceOf[Map[String, Any]]
+//
+//          List(spoutState.getOrElse("topic", "Unknown Topic").toString)
+          List("testtopic")
         case None =>
           List()
       }

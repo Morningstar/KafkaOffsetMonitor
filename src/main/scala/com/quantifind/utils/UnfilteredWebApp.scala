@@ -24,10 +24,17 @@ trait UnfilteredWebApp[T <: Arguments] extends ArgMain[T] {
   override def main(parsed: T) {
     val root = getClass.getResource(htmlRoot)
     println("serving resources from: " + root)
-    unfiltered.jetty.Http(parsed.port)
-      .resources(root) //whatever is not matched by our filter will be served from the resources folder (html, css, ...)
-      .filter(setup(parsed))
-      .run(_ => afterStart(), _ => afterStop())
+    if (parsed.protocol.equals("https")) {
+      unfiltered.jetty.Https(parsed.port)
+        .resources(root) //whatever is not matched by our filter will be served from the resources folder (html, css, ...)
+        .filter(setup(parsed))
+        .run(_ => afterStart(), _ => afterStop())
+    }else{
+      unfiltered.jetty.Http(parsed.port)
+        .resources(root) //whatever is not matched by our filter will be served from the resources folder (html, css, ...)
+        .filter(setup(parsed))
+        .run(_ => afterStart(), _ => afterStop())
+    }
   }
 
 }
@@ -36,6 +43,7 @@ object UnfilteredWebApp {
 
   trait Arguments extends FieldArgs {
     var port = Port.any
+    var protocol:String = "http"
   }
 
 }

@@ -35,15 +35,14 @@ class OffsetGetterArgsWGT extends OffsetGetterArgs {
 
 class OffsetGetterArgs extends FieldArgs {
 
-  var offsetStorage: String = "zookeeper"
+  var offsetStorage: String = "kafka"
 
-  var kafkaOffsetForceFromStart = false
+  var kafkaOffsetForceFromStart = true
 
   var stormZKOffsetBase = "/stormconsumers"
 
-  var kafkaBrokers: String = _
-
-  var kafkaSecurityProtocol = "PLAINTEXT"
+  @Required
+  var consumerConfig: String = _
 
   @Required
   var zk: String = _

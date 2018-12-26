@@ -1,0 +1,15 @@
+bootstrap.servers = localhost:9092
+key.serializer = org.apache.kafka.common.serialization.ByteArraySerializer
+key.deserializer = org.apache.kafka.common.serialization.ByteArrayDeserializer
+#sasl.jaas.config = com.sun.security.auth.module.Krb5LoginModule required useTicketCache=false renewTicket=true serviceName="kafka" useKeyTab=true  keyTab="/scurepath/kafka.headless.keytab" principal="kafka@EXAMPLE.COM";
+#sasl.kerberos.service.name = kafka
+#sasl.mechanism = GSSAPI
+security.protocol = PLAINTEXT
+value.deserializer = org.apache.kafka.common.serialization.ByteArraySerializer
+value.serializer = org.apache.kafka.common.serialization.ByteArrayDeserializer
+#ssl.keymanager.algorithm = SunX509
+#ssl.protocol = TLSv1.2
+#ssl.trustmanager.algorithm = SunX509
+#ssl.truststore.location = /secure-path/all-truststore.jks
+#ssl.truststore.password = StRoNgPaSsWoRd
+#ssl.truststore.type = JKS
